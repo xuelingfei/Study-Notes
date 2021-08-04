@@ -1,0 +1,17 @@
+Bit -- 比特/位
+Byte -- 字节
+Word -- 字
+
+1字节=8位(1 Byte = 8Bit)
+
+字长是指字的长度，对于嵌入式底层人员来说，1 Word大小跟cpu结构有关
+32位cpu，1 Word = 4 Bytes
+64位cpu，1 Word = 8 Bytes
+
+与传输速度有关的b一般指的是bit。
+与容量有关的b一般指的是byte。
+
+1 Byte = 8 Bits
+1 KB = 1024 Bytes = 2^10 Bytes
+1 MB = 1024 KB = 2^20 Bytes
+1 GB = 1024 MB = 2^30 Bytes

@@ -1,0 +1,39 @@
+SELECT sta.name, daily_tab.weather, daily_tab.fill_user, daily_tab.auditor, daily_tab.report_date,  mat.monthlyAmount, sd.capacity, 
+        daily_tab.ongrid_energy, daily_tab.month_ongrid_energy, daily_tab.year_ongrid_energy,
+        daily_tab.purchased_energy, daily_tab.month_purchased_energy, daily_tab.year_purchased_energy,
+        daily_tab.obliquee_exposure, daily_tab.month_obliquee_exposure, daily_tab.year_obliquee_exposure
+FROM stations sta
+LEFT JOIN station_detail sd ON sd.station_id = sta.id
+LEFT JOIN (
+    SELECT pd.weather, pd.fill_user, pd.auditor, pd.report_date, pd.station_id,pd.ongrid_energy, pd.purchased_energy, pd.obliquee_exposure, pd.running_days,
+        DATE_FORMAT(pd.report_date, '%Y') AS YEAR, DATE_FORMAT(pd.report_date, '%Y-%m') AS MONTH,
+        month_tab.ongrid_energy AS month_ongrid_energy,
+        month_tab.purchased_energy AS month_purchased_energy,
+        month_tab.obliquee_exposure AS month_obliquee_exposure,
+        year_tab.ongrid_energy AS year_ongrid_energy,
+        year_tab.purchased_energy AS year_purchased_energy,
+        year_tab.obliquee_exposure AS year_obliquee_exposure
+    FROM pms_dailyproductionreports pd
+    LEFT JOIN (
+        SELECT sum(pd.ongrid_energy) ongrid_energy, sum(pd.purchased_energy) purchased_energy, sum(pd.obliquee_exposure) obliquee_exposure, pd.station_id, DATE_FORMAT(pd.report_date, '%Y') AS YEAR
+        FROM pms_dailyproductionreports pd
+        WHERE pd.ori_id = 0 AND pd.status = 1 and pd.report_date <= '2019-02-01' 
+        GROUP BY YEAR, station_id
+    ) year_tab ON year_tab.station_id = pd.station_id
+    AND year_tab.year = DATE_FORMAT(pd.report_date, '%Y')
+    LEFT JOIN (
+        SELECT sum(pd.ongrid_energy) ongrid_energy, sum(pd.purchased_energy) purchased_energy, sum(pd.obliquee_exposure) obliquee_exposure, pd.station_id, DATE_FORMAT(pd.report_date, '%Y-%m') AS MONTH
+        FROM pms_dailyproductionreports pd
+        WHERE pd.ori_id = 0 AND pd.status = 1 AND pd.report_date <= '2019-02-01' 
+        GROUP BY MONTH, station_id
+    ) month_tab ON month_tab.station_id = pd.station_id
+    AND month_tab.month = DATE_FORMAT(pd.report_date, '%Y-%m')
+    WHERE pd.ori_id = 0 AND pd.status = 1 AND pd.report_date = '2019-02-01'
+) daily_tab ON daily_tab.station_id = sta.id
+LEFT JOIN (
+    SELECT sum(amount) monthlyAmount, YEAR, MONTH, station_id
+    FROM pms_energyplannings
+    WHERE status = 1 and type = '上网电量'
+    GROUP BY station_id, year, month
+) mat on mat.station_id = sta.id and mat.year = '2019' and mat.month = '2'
+WHERE sta.organization_id = 1 AND sta.status = 1 AND sd.status = 1

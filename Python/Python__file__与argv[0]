@@ -1,0 +1,51 @@
+在Python下，获取当前执行主脚本的方法有两个：sys.argv[0]和__file__。
+
+1.sys.argv[0]
+sys.argv[0]获取的可能是一个相对路径，所以再取一下abspath是保险的做法，像这样：
+import os,sys
+print("file is: " + os.path.abspath(sys.argv[0]))
+
+2.__file__
+__file__是用来获取模块所在的路径的，这可能得到的是一个相对路径，比如在脚本/home/xlf/practice/test.py中写入：
+print(__file__)
+    按相对路径python3 test.py来执行，则打印得到的是相对路径；
+    按绝对路径python3 /home/xlf/practice/test.py执行，则得到的是绝对路径；
+    按用户目录来执行（~/practice/test.py），则得到的也是绝对路径（~被展开）。
+所以为了得到绝对路径，我们需要再取一下abspath（如果直接在IDE里运行，结果会显示当前文件的绝对路径，这是IDE自作主张增加的，终端里面是不会有的）。
+
+在Python控制台下，直接使用__file__是会导致NameError错误的
+>>> print(__file__)
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+NameError: name '__file__' is not defined
+因为__file__显示文件路径，没有在任何一个文件里面执行，自然没有__file__的定义了。
+
+3.__file__和argv[0]的差异：
+在主执行文件中时，两者没什么差异，不过要是在不同的文件下，就不同了，示例如下：
+
+C:\junk\so&gt;type \junk\so\scriptpath\script1.py
+import sys, os
+print "script: sys.argv[0] is", repr(sys.argv[0])
+print "script: __file__ is", repr(__file__)
+print "script: cwd is", repr(os.getcwd())
+import whereutils
+whereutils.show_where()
+ 
+C:\junk\so&gt;type \python26\lib\site-packages\whereutils.py
+import sys, os
+def show_where():
+    print "show_where: sys.argv[0] is", repr(sys.argv[0])
+    print "show_where: __file__ is", repr(__file__)
+    print "show_where: cwd is", repr(os.getcwd())
+
+C:\junk\so&gt;\python26\python scriptpath\script1.py
+script: sys.argv[0] is 'scriptpath\\script1.py'
+script: __file__ is 'scriptpath\\script1.py'
+script: cwd is 'C:\\junk\\so'
+show_where: sys.argv[0] is 'scriptpath\\script1.py'
+show_where: __file__ is 'C:\\python26\\lib\\site-packages\\whereutils.pyc'
+show_where: cwd is 'C:\\junk\\so'
+
+
+
+

@@ -1,0 +1,76 @@
+一、Python中的find()方法：
+
+str1.find(str2)
+str1.find(str2, beg)
+str1.find(str2, beg, end)
+检测字符串str1中是否包含子字符串str2，如果指定beg（开始）和end（结束）范围，则检查是否包含在指定范围内，如果包含则返回第一个索引值，否则返回-1。
+
+参数：
+str2 -- 指定检索的字符串
+beg -- 开始索引，默认为0
+end -- 结束索引，默认为字符串的长度
+
+
+二、BeautifulSoup中find()和findAll()[find_all()]
+
+1.find()：
+获取传入的HTML对象的第一个满足条件的标签。
+
+函数原型：find(tag, atributes, recursive ,text, keywords)
+
+参数
+tag：表明需要查找的标签类型，tag可以是多个。
+如：
+    soup.find('h1')  # 返回soup中的第一个h1标签
+    soup.find({'h1', 'h2', 'h3'})  # 返回h1-h3标签列表中的第一项
+
+attributes：使用标签内的若干属性对应的属性值进行标签查找，属性值可以是多个。
+注：可使用soup.find("tagName", {"class": "cssClass" })搜索CSS class，这个字符串默认处理为CSS的class的参数值。
+如：
+    soup.find('span', {'class': {'green', 'red'}})  # 返回class属性为red和green的第一个span标签
+
+recursive：是否使用递归方法遍历每一个子标签。默认开启，为True；如果设置为False，find()只查找文档的一级标签。
+
+text：根据标签的文本内容去查找，通常配合正则表达式使用。
+如：
+    soup.find(text='the prince')  # 查找文本内容'the prince'是否存在，存在则返回'the prince'，否则返回为空（None）
+    soup.find(text=re.compile('the'))  # 使用正则表达式查找包含'the'的文本内容，存在则返回该文本内容，否则返回为空（None）
+
+keywords：标签内指定属性的标签列表。与attribute参数相似，有一个例外就是用class属性查找标签的时候，直接find(class='green')会报错，因为class是保留字。
+如：
+    soup.find(id='text')
+    soup.find(class='text')  # 会报错
+    soup.find(class_='text')  # 正确方案
+
+
+2.findAll()[find_all()]：
+获取传入的HTML对象的所有满足条件的标签组。
+
+函数原型：findAll(tag,atributes,recursive,text,limit,keywords)
+
+参数
+tag：表明需要查找的标签类型，tag可以是多个。
+如：
+    soup.findAll('h1')  # 返回h1标签列表
+    soup.findAll({'h1','h2','h3'})  # 返回h1-h3标题标签列表
+
+attributes：使用标签内的若干属性对应的属性值进行标签查找，属性值可以是多个。
+注：可使用soup.findAll("tagName", {"class": "cssClass"})搜索CSS class，这个字符串默认处理为CSS的class的参数值。
+如：
+    soup.findAll('span',{'class':{'green','red'}})  # 返回class属性为red和green的span标签列表
+
+recursive：是否使用递归方法遍历每一个子标签，默认是开启，为True。如果设置为False，findAll()只查找文档的一级标签。
+
+text：根据标签的文本内容去查找标签列表，通常配合正则表达式使用。
+如：
+nameList = soup.findAll(text='the prince')  # 查找文本内容'the prince'是否存在，存在则返回['the prince', 'the prince', ...]，否则返回空列表
+nameList = soup.findAll(text=re.compile('the'))  # 使用正则表达式查找包含'the'的文本内容，存在则返回其列表，否则返回空列表
+
+
+limit：范围限制参数，显然只能用于findAll()函数。限定返回的个数，比如要抽取多少个标签信息做样本。
+
+keywords：标签内指定属性的标签列表。与attribute参数相似，有一个例外就是用class属性查找标签的时候，直接findAll(class="green")会报错，因为class是保留字。
+如：
+    soup.findAll(id='text')
+    soup.findAll(class='text')  # 会报错
+    soup.findAll(class_='text')  # 正确方案

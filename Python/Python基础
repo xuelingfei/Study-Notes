@@ -1,0 +1,59 @@
+查询Python路径：
+    Linux：
+    which python3
+    或type -a python3
+    或whereis python
+
+    Windows：
+    >>> import sys
+    >>> sys.path
+
+global语句【global 变量名】：如果需要在一个函数内修改全局变量，就使用global语句。
+del语句【del 变量名】：删除变量；可删除知道索引的任何位置的元素。
+
+多重赋值技巧：
+    cat = ['fat', 'black', 'loud']
+    size, color, disposition = cat
+    a, b, c = 5, 6, 'seven'
+
+引用：
+    在变量保存可变数据类型的值时，例如列表或字典，Python就使用引用（变量包含对值的引用，而不是值本身）。
+    对于不可变的数据类型的值，例如字符串、整型或元组，Python变量就保存值本身。
+
+Lambda表达式：
+    Lambda expressions (sometimes called lambda forms) are used to create anonymous functions. The expression
+
+        lambda parameter_list: expression
+
+    yields a function object.  The unnamed object behaves like a function object defined with:
+
+       def <lambda>(parameter_list):
+           return expression
+
+    Note that functions created with lambda expressions cannot contain statements or annotations.
+
+    For example:
+        add = lambda x, y: x+y
+        add(1,2)  # Result is 3.
+
+
+将函数存储在模块中：
+    导入整个模块：
+        import module_name
+    使用as给模块指定别名：
+        import module_name as mn
+
+    导入特定的函数：
+        from module_name import function_name
+    使用as给函数指定别名：
+        from module_name import function_name as fn
+
+    导入模块中的所有函数：
+        from module_name import *
+    注：使用并非自己编写的大型模块时，最好不要采用这种导入方法：如果模块中有函数的名称与你的项目中使用的名称相同，可能导致意想不到的结果：Python可能遇到多个名称相同的函数或变量，进而覆盖函数，而不是分别导入所有函数。
+
+
+导入内置模块：
+    当内置函数或变量被自定义函数或变量覆盖时，可以通过导入内置模块的方法调用内置函数，如
+    import builtins
+    builtins.list('abcde')

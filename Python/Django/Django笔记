@@ -1,0 +1,98 @@
+django时间的时区问题
+1. TIME_ZONE = 'UTC' 改为 TIME_ZONE = 'Asia/Shanghai'
+2. USE_TZ = True 改为 USE_TZ = False（否则存储到数据库中的时间永远是UTC时间，比本地时间小8小时）
+
+
+Django浏览器打开警告Not Found: /favicon.ico（静态文件加载方法）
+1.首先准备favicon.ico图片，放到项目目录的static/img下
+2.在html文件的head标签中增加以下代码
+ {% load static %}
+ <link rel="icon" href="{% static "img/favicon.ico" %}"/>
+ 3.在settings.py的最下面加上
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+
+用request.GET获取url里的内容，用?隔开url和属性，用&隔开不同属性
+url + "?organization=" + $("#id_organization").val() + "&section=" + $("#id_section").val() + "&pId="+pId
+
+
+django 获取当前访问的URL
+print(request.get_full_path()) //打印出全路径（路径和参数）
+print(request.path_info) //取当前请求的路径
+
+通过request反编译获取当前页面的urlName：
+urlName = resolve(request.path).url_name
+
+python-django (request 获取访问者的 IP)
+if request.META.get('HTTP_X_FORWARDED_FOR'):
+    ip = request.META.get("HTTP_X_FORWARDED_FOR")
+else:
+    ip = request.META.get("REMOTE_ADDR")
+print("ip : ", ip)
+
+
+解决 python No migrations to apply 无法生成表
+第一步：
+删除该app名字下的migrations文件。
+第二步：
+进入数据库，找到django_migrations的表，删除该app名字的所有记录。
+第三步:
+python manage.py makemigrations
+python manage.py migrate
+
+
+Django form的widget格式控制失效：
+例如：
+from django import forms
+from django.forms import ModelForm
+from django.forms import widgets as wid
+
+class ExampleForm(ModelForm):
+    organization = forms.CharField(required=False, label="组织")
+    month = forms.DateField(required=False, label="月份")
+
+    class Meta:
+        model = ExampleModel
+        fields = ["organization", "station", "month"]
+        error_messages = None
+        widgets = {
+            "organization": wid.Input(attrs={"class": "form-control", "type": "hidden"}),
+            "station": wid.Input(attrs={"class": "form-control", "type": "hidden"}),
+            "month": wid.Input(attrs={"class": "form-control", "type": "hidden"}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(ExampleForm, self).__init__(*args, **kwargs)
+        self.fields['organization'].required = False
+        self.fields['station'].required = False
+        self.fields['month'].required = False
+由于organization和month并非ExampleModel中的字段，在widgets = {}中对organization和month的格式控制会失效，在views中用pssf = ExampleForm(request.GET)获取时"type": "hidden"已经丢失。
+
+需做如下修改才能正常显示：
+class ExampleForm(ModelForm):
+    organization = forms.CharField(required=False, label="组织", widget=forms.TextInput(attrs={"class": "form-control", "type": "hidden"}))
+    month = forms.DateField(required=False, label="月份", widget=forms.TextInput(attrs={"class": "form-control", "type": "hidden"}))
+
+    class Meta:
+        model = ExampleModel
+        fields = ["organization", "station", "month"]
+        error_messages = None
+        widgets = {
+            # "organization": wid.Input(attrs={"class": "form-control", "type": "hidden"}),
+            "station": wid.Input(attrs={"class": "form-control", "type": "hidden"}),
+            # "month": wid.Input(attrs={"class": "form-control", "type": "hidden"}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(ExampleForm, self).__init__(*args, **kwargs)
+        # self.fields['organization'].required = False
+        self.fields['station'].required = False
+        # self.fields['month'].required = False
+
+
+定时任务部分
+djangoCelery的views中的方法要加 @task 才能在后台管理中显示。
+views中的方法要在settings中的CELERY_IMPORTS和CELERY_IMPORTS_TASK里面注册才能生效，否则会报错。

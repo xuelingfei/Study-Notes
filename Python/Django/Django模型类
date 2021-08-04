@@ -1,0 +1,25 @@
+每一个Django模型类都有一个主键字段（id），它用来维护模型对象的唯一性。Django提供了一个pk字段来代表它，我们可以通过它来完成相应的查询。比如下面的例子：
+    Blog.objects.get(id__exact=14)  # 通过明确声明id字段的方式获得一个Blog对象
+    Blog.objects.get(id=14)  # 通过id字段获得Blog对象，隐含地使用__exact
+    Blog.objects.get(pk=14)  # 这里的pk就相当于id__exact
+
+pk也支持其它除了__exact的操作，比如：
+    Blog.objects.filter(pk__in=[1,3,9])  # 获得id值为1,3,9的Blog对象集合
+    Blog.objects.filter(pk__gt=18)  # 获得所有id值大于18的Blog对象集合
+
+pk字段同样也支持跨模型的查询，比如下面的三种写法，效果是一样的，都是表示查找所有 Blog 的id为1的Entry集合：
+    Entry.objects.filter(blog__id__exact=1)  # 显式地使用__exact
+    Entry.objects.filter(blog__id=1)  # 隐含地使用__exact
+    Entry.objects.filter(blog__pk=1)  # __pk相当于__id__exact
+
+
+django中设置 auto_now_add=True 和 auto_now=True 的字段不参与生成 form
+
+批量新增数据
+book_list = list()
+for name in ['大学', '中庸', '论语', '孟子']:
+    item = Book()
+    item.name = name
+    book_list.append(item)
+Book.objects.bulk_create(book_list)
+bulk_create()方法不能用于更新数据。

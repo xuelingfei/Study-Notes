@@ -1,0 +1,35 @@
+Windows安装Django
+pip install django(==2.0.7)
+Ubuntu安装Django
+pip3 install django(==2.0.7)（需重启）
+sudo apt-get install python3-django（虚机）
+
+升级Django版本
+pip install --upgrade Django(==3.0.5)
+
+查看django版本
+>>> import django
+>>> print(django.get_version())
+2.0
+
+创建Django项目（mysite）
+django-admin startproject mysite .（末尾的句点让新项目使用合适的目录结构）
+创建应用程序（polls）
+python manage.py startapp polls
+
+为模型的改变生成迁移文件
+python manage.py makemigrations polls
+应用数据库迁移
+python manage.py migrate
+
+查看项目
+python manage.py runserver
+
+
+python manage.py check
+python manage.py sqlmigrate polls 0001
+
+用项目配置启动python解释器，可用来探索存储在项目数据库中的数据
+python manage.py shell
+
+python manage.py createsuperuser

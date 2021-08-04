@@ -1,0 +1,171 @@
+一、模型查询
+概述：
+1 查询集：表示从数据库中获取的对象的集合
+2 查询集可以有多个过滤器，通过逻辑运算符连接
+3 过滤器就是一个函数，基于所给的参数限制查询的结果，类似MySQL模糊查询中where语句
+4 查询集等同select语句
+
+
+二、查询集
+特点：
+1 查询集通过调用过滤器方进行查询, 查询集经过过滤器筛选后返回新的查询集，可以链式调用
+2 惰性执行，创建查询集不会带来任何数据库的访问直到调用数据库才会访问
+
+返回单个数据查询:
+get()    返回一个满足条件的对象
+         注意：没有找到符合条件的对象,模型类会引发异常，模型类.DoesNotExists异常
+         如果找到多个对象也会引发异常，模型类.MultipleObjectsReturned异常
+count()    返回查询集中的对象个数
+first()    返回第一个查询集对象
+last()    返回最后一个查询集对象
+exists()    查询集是否有数据,如果有数据返回true
+
+限制查询集：查询集返回的是列表,可以采用下标的方法进行限制,等同于sql中的limit语句
+studentList = Student.objects.all()[0:5]
+
+查询集缓存：每个查询集都包含一个缓存，来最小化的对数据库访问。在新建的查询集中，缓存首次为空，第一次对查询集求值，django会将数据缓存，并返回结果，以后结果直接使用缓存集的数据
+
+
+三、常见过滤器
+all()    返回所有对象
+filter()    filter(键=值,键=值)，“且”关系
+            返回符合条件的数据
+            filter(键=值),filter(键=值)
+exclude()    过滤掉符合条件数据
+order_by()    排序
+values()    一条数据就是是一个对象(字典),返回一个列表
+distinct()    用在value()之后，对查询结果去重（不可与order_by()同时使用）
+
+
+四、比较运算符
+(1)概述：实现where语句,作为filter()、exclude()、get()的参数
+  语法：属性名称__运算符 = 值
+  外键：属性名_id
+  转义：类似like语句，是为了匹配占位，匹配数据中的%，sql中where like '\%'
+        filter(sname__contains = '%')
+      
+(2)常见的比较运算符：
+    exact    判断，精确等于，大小写敏感
+    contains    包含，大小写敏感
+                stuList = Student.objects.filter(sname__contains ='孙' )
+    startswith    以value开头，大小写敏感
+                  stuList = Student.objects.filter(sname__startswith ='孙' )
+    endwith    以value结尾，大小写敏感
+    注：以上四个前面加上i，就表示不区分大小写，iexact,icontains,istartswith,iendswith
+
+    in    包含在一个list范围内    
+          filter(pk__in=[2,4,6,8,10])
+    range    在...范围内
+    overlap    集合至少有一个元素重合
+    regex    匹配正则表达式
+    
+(3) 其他形式查询
+为空判断：
+    isnull, isnotnull    是否为空(=True/False)
+                         filter(sname__isnull=Flase)  
+比较运算：
+    gt    大于
+    gte    大于等于
+    lt    小于
+    lte    小于等于
+           filter(sage_gt=30)  # 年龄大于30
+时间查询：
+    date/year/month/day/week_day/hour/minute/second
+        时间字段的日期(datetime.date)、年、月、日、周、时、分、秒
+        filter(lastTime__year=2017)
+跨关查询  处理join查询  模型类型__属性名__运算符(可选)
+查询快捷  pk  代表的主键 
+
+五、F对象与Q对象
+常见的聚合函数：
+使用aggregate()函数返回聚合函数的值
+Avg  Count  Max  Min  Sum
+
+from dango.db.models import Max
+maxAge = Student.objects.aggregate(Max('sage'))  # 找出学生年龄最大的
+
+F对象
+1.可以使用模型的A属性与B属性进行比较
+    from django.db.models import F,Q
+    def grades(request):
+        g = Grades.objects.filter(ggirlnum_gt=F('gboynum'))  # 找到女生人数大于男生人数的班级
+2.支持F对象的算术运算
+    filter(ggirlnum_gt=F('gboynum')+20)
+3.F对象的参数可以是跨表字段
+    models.Book.objects.filter(bread_num=F(''author_name'))
+4.F对象参数如果是date/time,可以进行日期的加减运算:
+    models.Book.objects.filter(bpub_date__lt=F('bpub_date') + timedelta(days=5))
+    
+Q对象
+概述：用于查询时条件之间的逻辑关系。not and or，可以对Q对象进行 ~ & | 操作。
+
+class Book(models.Model):
+    author = models.ForeignKey(Author, on_delete=True, null=True, db_constraint=False, verbose_name="作者", related_name='bookAuthor')
+tom = Author.objects.get(pk=1)
+bookList = Book.objects.filter(Q(author=tom))
+bookList = Book.objects.filter(Q(author=tom.id))
+bookList = Book.objects.filter(Q(author_id=tom.id))
+bookList = Book.objects.filter(Q(author__id=tom.id), Q(author__name="汤姆"))
+Q中等号左侧的 author 会自动匹配 Author object 或者 id，author_id 则直接匹配 Book 表里的 author 字段；而author__id ，author__name 中双下划线表示对象属性，是通过 author 外键链接到 Author 表里匹配 id 和 name。
+注意：
+class FocusIndicators(BaseModel):
+    baseItem = models.ForeignKey(ReportBaseItem, on_delete=True, null=True, db_constraint=False,
+                                 related_name='FocusIndicatorsItem', db_column='item_id')
+details = FocusIndicators.objects.filter(Q(baseItem_id__in=localItemList))
+其中，Q里等号左边是baseItem_id__in，取数据库里的item_id字段；也可以是baseItem__id__in，取关联的id属性，但不能是item_id__in。
+
+小结：
+1.Q对象可以使用&(and)、|(or)操作符组合起来，在Q对象的前面使用字符~(not)来代表意义“非”；
+    studentList = Student.objects.filter(Q(pk__lt = 3)|Q(sage__gt=50))  # id小于3或年龄大于50岁
+    models.User.objects.filter(Q(username='老王') & Q(userpass='admin'))  # 条件与组合
+    models.User.objects.filter(~Q(username='老王'))  # 条件非表示取反
+2.可以使用 &(and)、|(or)、~(not)结合括号进行分组，构造更复杂的Q对象；
+3.filter函数可以传递一个或多个Q对象作为位置参数，如果有多个Q对象，这些参数的逻辑为and。
+
+下面分享一个综合用法：
+
+ def get(self, request, *args, **kwargs):
+    filters = request.GET
+    # 找出符合customer的数据转成列表
+    Qs = [Q(customer=request.user.customer)]
+    try:
+        if 'limit' in filters:
+            limit = abs(int(filters['limit']))
+            if limit > 50:
+                limit = 50
+        else:
+            limit = 15
+        start_id = int(filters.get('start_id', 0))
+        # 添加符合start_id的对象
+        Qs.append(Q(id__gt=start_id))
+        # 添加符合状态的state
+        if 'state' in filters:
+            Qs.append(Q(state__in=filters['state']))
+        else:
+            Qs.append(Q(state__in=[0, 1, 2, 3, 4]))
+        # 添加符合title的数据
+        if 'title' in filters:
+            Qs.append(Q(title__contains=filters['title']))
+    except Exception:
+        return params_error({"filters": "过滤参数不合法"})
+    
+    # 通过*Qs，对列表数据同时满足上述情况的数据进行总的筛选，并设置限制集
+    sets = Questionnaire.objects.filter(*Qs)[:limit]
+
+
+通过模型类跨表关联查询
+例：查询图书信息，要求图书关联的英雄的描述包含’八’。
+BookInfo.objects.filter(heroinfo__hcomment__contains='八')
+
+
+django 查询结果对某字段求和
+inventory_query = StoreSpare.objects.filter(Q(status=BaseModel.STATUS_SHTG), Q(store_id__in=store_id_list))
+num_dict = inventory_query.aggregate(number=Sum('count'))
+{'number': None}
+
+
+Store.objects.filter(Q(status=BaseModel.STATUS_SHTG), Q(parent_id=store_id)).update(
+                    status=BaseModel.STATUS_DEL, updateUser_id=SessionUser.getSessionUser().id
+                )
+
+inventory_query.save(update_fields=['count', 'price', 'amount', 'updateUser_id'])

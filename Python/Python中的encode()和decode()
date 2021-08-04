@@ -1,0 +1,15 @@
+Python中的encode()和decode()函数：
+
+          encode                   decode
+           编码                     解码
+Unicode ---------> gbk,utf-8,etc. ---------> Unicode
+ (str)                (bytes)                 (str)
+
+
+
+str.encode(encoding="utf-8", errors="strict")
+    Return an encoded version of the string as a bytes object. Default encoding is 'utf-8'. errors may be given to set a different error handling scheme. The default for errors is 'strict', meaning that encoding errors raise a UnicodeError.
+
+bytes.decode(encoding="utf-8", errors="strict")
+bytearray.decode(encoding="utf-8", errors="strict")
+    Return a string decoded from the given bytes. Default encoding is 'utf-8'. errors may be given to set a different error handling scheme. The default for errors is 'strict', meaning that encoding errors raise a UnicodeError.

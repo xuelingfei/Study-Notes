@@ -1,0 +1,42 @@
+正则表达式
+
+compile(pattern, flags=0)
+    Compile a regular expression pattern, returning a Pattern object.
+
+从compile()函数的定义中，可以看出返回的是一个匹配对象，它单独使用就没有任何意义，需要和findall(), search(), match(）搭配使用。
+将正则表达式 pattern 编译为正则表达式对象，可用于使用其 match() 和search() 方法进行匹配。
+
+顺序：
+    prog = re.compile(pattern)
+    result = prog.match(string)
+
+等价于：
+
+    result = re.match(pattern, string)
+但是当单个程序中的表达式被多次使用时，使用 re.compile() 和保存生成的正则表达式对象进行重用会更有效率。
+
+kk = re.compile(r'\d+')
+kk.findall('one1two2three3four4')
+#[1,2,3,4]
+ 
+#注意此处findall()的用法，可传两个参数;
+kk = re.compile(r'\d+')
+re.findall(kk,"one123")
+#[1,2,3]
+
+
+
+
+findall(pattern, string, flags=0)
+    Return a list of all non-overlapping matches in the string.
+
+    If one or more capturing groups are present in the pattern, return
+    a list of groups; this will be a list of tuples if the pattern
+    has more than one group.
+
+    Empty matches are included in the result.
+
+
+
+    findall(模式（正则表达式），目标字符串)， 返回值为list类型，list元素为匹配出的各个字符串 
+    findall()函数还有第三个参数匹配模式，使用多个模式可以用'|'将各个模式分开，并且所有模式可以同时生效

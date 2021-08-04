@@ -1,0 +1,3 @@
+classmethod datetime.now(tz=None)
+Return the current local date and time. If optional argument tz is None or not
+specified, this is like today()

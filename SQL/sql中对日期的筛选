@@ -1,0 +1,25 @@
+#几个小时内的数据
+DATE_SUB(NOW(), INTERVAL 5 HOUR)
+#今天
+select * from 表名 where to_days(时间字段名) = to_days(now());
+#昨天
+SELECT * FROM 表名 WHERE TO_DAYS( NOW( ) ) - TO_DAYS( 时间字段名) <= 1
+#7天
+SELECT * FROM 表名 where DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(时间字段名)
+#近30天
+SELECT * FROM 表名 where DATE_SUB(CURDATE(), INTERVAL 30 DAY) <= date(时间字段名)
+#本月
+SELECT * FROM 表名 WHERE DATE_FORMAT( 时间字段名, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+#上一月
+SELECT * FROM 表名 WHERE PERIOD_DIFF( date_format( now( ) , '%Y%m' ) , date_format( 时间字段名, '%Y%m' ) ) =1
+#查询本季度的数据
+SELECT * FROM order WHERE QUARTER(时间字段名)=QUARTER(NOW())
+#查询上季度的数据
+SELECT * FROM order WHERE QUARTER(时间字段名)=QUARTER(DATE_SUB(NOW(),INTERVAL 1 QUARTER))
+#查询当年（今年）的数据
+SELECT * FROM `order` WHERE YEAR(order_time)=YEAR(NOW())
+#查询去年的数据
+SELECT * FROM `order` WHERE YEAR(order_time)=YEAR(DATE_SUB(NOW(),INTERVAL 1 YEAR))
+
+
+https://www.cnblogs.com/weifeng123/p/11014114.html
