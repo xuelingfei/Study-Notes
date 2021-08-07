@@ -1,4 +1,4 @@
-## JS Tips
+## JS & jQuery Tips
 
 
 - [获取上传的文件](#获取上传的文件)  
@@ -7,6 +7,7 @@
 - [判断当前是否在 iframe 中](#判断当前是否在-iframe-中)  
 - [图片加载失败时的处理](#图片加载失败时的处理)  
 - [生成指定长度的数组](#生成指定长度的数组)  
+- [判断元素是否存在](#判断元素是否存在)  
 
 
 #### 获取上传的文件
@@ -125,3 +126,11 @@ let a = new Array(n).join(',').split(',')
 let a = [...new Array(n).keys()]  //[0, 1, 2, ..., n-1]
 ```
 参考链接：<https://blog.csdn.net/bangbDIV/article/details/90692290>
+
+
+####　判断元素是否存在
+```js
+if ($("#id_example").length > 0) {
+  console.log("元素存在")
+}
+```
