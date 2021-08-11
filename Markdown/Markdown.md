@@ -43,3 +43,4 @@
 #### e，e
 #### e。e
 #### e、e
+#### Object.assign()
