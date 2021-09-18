@@ -25,6 +25,22 @@
 - vue 3.x 增加了 v-slot 的指令，去掉了原来的 slot，slot-scope 属性。  
   el-dropdown-menu 标签外面加上<template v-slot:dropdown> </el-dropdown-menu>
 
+- python引用
+    初始化
+    date_list = timeUtil.getEveryDay(start_date_str, end_date_str)
+    date_value = {date: None for date in date_list}
+    ident_value_dict = {ident: date_value.copy() for ident in ident_list}
+
+- js获取高度
+1. $("#div_id").height(); // 获得的是该div本身的高度, (不包含padding,margin,border)
+2. $("#div_id").outerHeight(); // 包含该div本身的高度, padding上下的高度, 以及border上下的高度(不包含margin的高度)
+3. $("#div_id").outerHeight(true); // 包含该div本身的高度, 以及padding,border,margin上下的总高度
+
+$("#divId").height(); //不包括内边距、边框或外边距
+$("#divId").innerHeight();//包括内边距
+$("#divId").outerHeight();//包括内边距和边框
+
+
 ## 链接
 
 https://blog.csdn.net/qq_43561840/article/details/105137417
