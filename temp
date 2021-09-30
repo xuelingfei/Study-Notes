@@ -40,6 +40,81 @@ $("#divId").height(); //不包括内边距、边框或外边距
 $("#divId").innerHeight();//包括内边距
 $("#divId").outerHeight();//包括内边距和边框
 
+- Object.assign()导致的组件复用覆盖问题
+```vue
+<template>
+  <template v-if="title">
+    <div class="floor-title one-line" :style="`margin: 0 0 ${gapObj.title}px;color: ${colorObj.title}`">
+      {{ title }}
+    </div>
+  </template>
+  <template v-if="subTitle">
+    <div
+      class="floor-sub_title"
+      v-html="subTitle"
+      :style="`margin: 0 0 ${gapObj.subTitle}px;color: ${colorObj.subTitle}`"
+    ></div>
+  </template>
+</template>
+
+<script>
+//默认间距
+const defaultGapObj = {
+  //标题底部的间距
+  title: 22,
+  //副标题底部的间距
+  subTitle: 36,
+}
+//默认颜色
+const defaultColorObj = {
+  //标题
+  title: "#303133",
+  //副标题
+  subTitle: "#767979",
+}
+export default {
+  props: {
+    title: {
+      type: String,
+      default: "",
+    },
+    subTitle: {
+      type: String,
+      default: "",
+    },
+    //间距
+    gap: {
+      type: Object,
+      default: () => defaultGapObj,
+    },
+    //颜色
+    color: {
+      type: Object,
+      default: () => defaultColorObj,
+    },
+  },
+  name: "FloorTitle",
+  data() {
+    return {
+      gapObj: {},
+      colorObj: {},
+    }
+  },
+  mounted() {
+    const { gap, color } = this
+    this.gapObj = Object.assign({}, defaultGapObj, gap)
+    this.colorObj = Object.assign({}, defaultColorObj, color)
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+@import "./index.scss";
+</style>
+```
+
+
+
 
 ## 链接
 
