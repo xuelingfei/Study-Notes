@@ -295,3 +295,26 @@ export default {
 @import "./index.scss";
 </style>
 ```
+
+
+#### 跳出指定循环
+```js
+loopTableData: for (let i = 0; i < this.tableData.length; i++) {
+              let item = this.tableData[i]
+              for (let j = 0; j < item.children.length; j++) {
+                if (item.children[j].id === record.id) {
+                  item.children[j].total_amount = val
+                  break loopTableData
+                }
+              }
+            }
+```
+
+
+#### 输入控制
+浮点数
+ onkeyup="this.value=this.value.match(/\d+(\.\d*)?/g)?this.value.match(/\d+(\.\d*)?/g)[0]:''"
+非负整数
+onkeyup="this.value=this.value.replace(/[^\d]/g,'')"
+三位小数
+onkeyup="this.value=this.value.match(/\d+(\.\d{0,3})?/g)?this.value.match(/\d+(\.\d{0,3})?/g)[0]:''"
