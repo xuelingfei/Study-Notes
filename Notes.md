@@ -318,3 +318,135 @@ loopTableData: for (let i = 0; i < this.tableData.length; i++) {
 onkeyup="this.value=this.value.replace(/[^\d]/g,'')"
 三位小数
 onkeyup="this.value=this.value.match(/\d+(\.\d{0,3})?/g)?this.value.match(/\d+(\.\d{0,3})?/g)[0]:''"
+
+
+#### vuex分模块后如何通过mapState调用
+MainLayoutHeader, order-submit
+
+
+
+if (config.data instanceof FormData) {
+      config.timeout = 10000 // OCR文件识别所需时间较长
+      console.log("FormData pass")
+    } else if (config.method === "post") {
+      if (isObject(config.data)) {
+        const config_data = {}
+
+        for (let key in config.data) {
+          let item = config.data[key]
+          if (!isArray(item)) {
+            if (isNull(item) || isUndefined(item)) {
+              config_data[key] = ""
+            } else {
+              config_data[key] = item
+            }
+          } else {
+            config_data[key] = item
+          }
+        }
+
+const loadingStyle = {
+        text: "加载中...",
+        color: "#009688",
+        textColor: "#009688",
+        fontSize: chartFont(1.2),
+        lineWidth: 2,
+      }
+      echarts.init(document.getElementById("yearlySales")).showLoading(loadingStyle)
+      echarts.init(document.getElementById("monthlySales")).showLoading(loadingStyle)
+      myChart.hideLoading()
+  
+
+  window.onresize = function () {
+        myChart.resize()
+      }
+   window.onresize = null
+
+antd table 序号列
+   {
+        title: "序号",
+        dataIndex: "index",
+        align: "center",
+        customRender: ({ index }) => `${index + 1}`,
+        width: 80,
+      },
+
+
+Ant-design-vue Table组件customRow属性的使用说明
+ 更新时间：2020年10月28日 10:51:44   作者：EasonGG  
+这篇文章主要介绍了Ant-design-vue Table组件customRow属性的使用说明，具有很好的参考价值，希望对大家有所帮助。一起跟随小编过来看看吧
+官网示例
+
+使用方式
+   // 表格中加入customRow属性并绑定一个custom方法
+   <a-table
+    rowKey="stockOrderCode"
+    :columns="columns"
+    :dataSource="dataSource"
+    :pagination="pagination"
+    :customRow="customRow"
+   >
+   </a-table>
+ 
+   // methods中定义方法
+   customRow(record, index) {
+ return {
+ // 这个style就是我自定义的属性，也就是官方文档中的props
+ style: {
+  // 字体颜色
+  color: record.remarkDesc ? record.remarkDesc.fontColor : 'rgba(0, 0, 0, 0.65)',
+  // 行背景色
+  'background-color': record.remarkDesc ? record.remarkDesc.bgColor : '#ffffff',
+  // 字体类型
+  'font-family': record.remarkDesc ? record.remarkDesc.fontType : 'Microsoft YaHei',
+  // 下划线
+  'text-decoration':
+  record.remarkDesc && record.remarkDesc.underline ? 'underline' : 'unset',
+  // 字体样式-斜体
+  'font-style': record.remarkDesc && record.remarkDesc.italics ? 'italic' : 'unset',
+  // 字体样式-斜体
+  'font-weight': record.remarkDesc && record.remarkDesc.bold ? 'bolder' : 'unset',
+ },
+ on: {
+  // 鼠标单击行
+  click: event => {
+  // do something
+  },
+ },
+ }
+},
+
+
+
+CSS3 :nth-child() 选择器
+定义和用法
+:nth-child(n) 选择器匹配属于其父元素的第 N 个子元素，不论元素的类型。
+
+n 可以是数字、关键词或公式。
+
+提示：请参阅 :nth-of-type() 选择器，该选择器选取父元素的第 N 个指定类型的子元素。
+
+实例 1
+Odd 和 even 是可用于匹配下标是奇数或偶数的子元素的关键词（第一个子元素的下标是 1）。
+
+在这里，我们为奇数和偶数 p 元素指定两种不同的背景色：
+
+p:nth-child(odd)
+{
+background:#ff0000;
+}
+p:nth-child(even)
+{
+background:#0000ff;
+}
+亲自试一试
+
+实例 2
+使用公式 (an + b)。描述：表示周期的长度，n 是计数器（从 0 开始），b 是偏移值。
+
+在这里，我们指定了下标是 3 的倍数的所有 p 元素的背景色：
+
+p:nth-child(3n+0)
+{
+background:#ff0000;
+}
