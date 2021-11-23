@@ -5,9 +5,10 @@
   <summary>目录</summary>
 
 - [文件下载](#文件下载)
-  - [通过链接下载](#通过链接下载)
-  - [通过文件流下载](#通过文件流下载)
-  </details>
+- [通过链接下载](#通过链接下载)
+- [通过文件流下载](#通过文件流下载)
+
+</details>
 
 ## 文件下载
 
@@ -296,41 +297,39 @@ export default {
 </style>
 ```
 
-
 #### 跳出指定循环
+
 ```js
 loopTableData: for (let i = 0; i < this.tableData.length; i++) {
-              let item = this.tableData[i]
-              for (let j = 0; j < item.children.length; j++) {
-                if (item.children[j].id === record.id) {
-                  item.children[j].total_amount = val
-                  break loopTableData
-                }
-              }
-            }
+  let item = this.tableData[i]
+  for (let j = 0; j < item.children.length; j++) {
+    if (item.children[j].id === record.id) {
+      item.children[j].total_amount = val
+      break loopTableData
+    }
+  }
+}
 ```
 
-
 #### 输入控制
+
 浮点数
- onkeyup="this.value=this.value.match(/\d+(\.\d*)?/g)?this.value.match(/\d+(\.\d*)?/g)[0]:''"
+onkeyup="this.value=this.value.match(/\d+(\.\d*)?/g)?this.value.match(/\d+(\.\d*)?/g)[0]:''"
 非负整数
 onkeyup="this.value=this.value.replace(/[^\d]/g,'')"
 三位小数
 onkeyup="this.value=this.value.match(/\d+(\.\d{0,3})?/g)?this.value.match(/\d+(\.\d{0,3})?/g)[0]:''"
 
+#### vuex 分模块后如何通过 mapState 调用
 
-#### vuex分模块后如何通过mapState调用
 MainLayoutHeader, order-submit
 
-
-
 if (config.data instanceof FormData) {
-      config.timeout = 10000 // OCR文件识别所需时间较长
-      console.log("FormData pass")
-    } else if (config.method === "post") {
-      if (isObject(config.data)) {
-        const config_data = {}
+config.timeout = 10000 // OCR 文件识别所需时间较长
+console.log("FormData pass")
+} else if (config.method === "post") {
+if (isObject(config.data)) {
+const config_data = {}
 
         for (let key in config.data) {
           let item = config.data[key]
@@ -346,77 +345,73 @@ if (config.data instanceof FormData) {
         }
 
 const loadingStyle = {
-        text: "加载中...",
-        color: "#009688",
-        textColor: "#009688",
-        fontSize: chartFont(1.2),
-        lineWidth: 2,
-      }
-      echarts.init(document.getElementById("yearlySales")).showLoading(loadingStyle)
-      echarts.init(document.getElementById("monthlySales")).showLoading(loadingStyle)
-      myChart.hideLoading()
-  
+text: "加载中...",
+color: "#009688",
+textColor: "#009688",
+fontSize: chartFont(1.2),
+lineWidth: 2,
+}
+echarts.init(document.getElementById("yearlySales")).showLoading(loadingStyle)
+echarts.init(document.getElementById("monthlySales")).showLoading(loadingStyle)
+myChart.hideLoading()
 
-  window.onresize = function () {
-        myChart.resize()
-      }
-   window.onresize = null
+window.onresize = function () {
+myChart.resize()
+}
+window.onresize = null
 
 antd table 序号列
-   {
-        title: "序号",
-        dataIndex: "index",
-        align: "center",
-        customRender: ({ index }) => `${index + 1}`,
-        width: 80,
-      },
+{
+title: "序号",
+dataIndex: "index",
+align: "center",
+customRender: ({ index }) => `${index + 1}`,
+width: 80,
+},
 
-
-Ant-design-vue Table组件customRow属性的使用说明
- 更新时间：2020年10月28日 10:51:44   作者：EasonGG  
-这篇文章主要介绍了Ant-design-vue Table组件customRow属性的使用说明，具有很好的参考价值，希望对大家有所帮助。一起跟随小编过来看看吧
+Ant-design-vue Table 组件 customRow 属性的使用说明
+更新时间：2020 年 10 月 28 日 10:51:44 作者：EasonGG  
+这篇文章主要介绍了 Ant-design-vue Table 组件 customRow 属性的使用说明，具有很好的参考价值，希望对大家有所帮助。一起跟随小编过来看看吧
 官网示例
 
 使用方式
-   // 表格中加入customRow属性并绑定一个custom方法
-   <a-table
-    rowKey="stockOrderCode"
-    :columns="columns"
-    :dataSource="dataSource"
-    :pagination="pagination"
-    :customRow="customRow"
-   >
-   </a-table>
- 
-   // methods中定义方法
-   customRow(record, index) {
- return {
- // 这个style就是我自定义的属性，也就是官方文档中的props
- style: {
-  // 字体颜色
-  color: record.remarkDesc ? record.remarkDesc.fontColor : 'rgba(0, 0, 0, 0.65)',
-  // 行背景色
-  'background-color': record.remarkDesc ? record.remarkDesc.bgColor : '#ffffff',
-  // 字体类型
-  'font-family': record.remarkDesc ? record.remarkDesc.fontType : 'Microsoft YaHei',
-  // 下划线
-  'text-decoration':
-  record.remarkDesc && record.remarkDesc.underline ? 'underline' : 'unset',
-  // 字体样式-斜体
-  'font-style': record.remarkDesc && record.remarkDesc.italics ? 'italic' : 'unset',
-  // 字体样式-斜体
-  'font-weight': record.remarkDesc && record.remarkDesc.bold ? 'bolder' : 'unset',
- },
- on: {
-  // 鼠标单击行
-  click: event => {
-  // do something
-  },
- },
- }
+// 表格中加入 customRow 属性并绑定一个 custom 方法
+<a-table
+rowKey="stockOrderCode"
+:columns="columns"
+:dataSource="dataSource"
+:pagination="pagination"
+:customRow="customRow"
+
+>    </a-table>
+
+// methods 中定义方法
+customRow(record, index) {
+return {
+// 这个 style 就是我自定义的属性，也就是官方文档中的 props
+style: {
+// 字体颜色
+color: record.remarkDesc ? record.remarkDesc.fontColor : 'rgba(0, 0, 0, 0.65)',
+// 行背景色
+'background-color': record.remarkDesc ? record.remarkDesc.bgColor : '#ffffff',
+// 字体类型
+'font-family': record.remarkDesc ? record.remarkDesc.fontType : 'Microsoft YaHei',
+// 下划线
+'text-decoration':
+record.remarkDesc && record.remarkDesc.underline ? 'underline' : 'unset',
+// 字体样式-斜体
+'font-style': record.remarkDesc && record.remarkDesc.italics ? 'italic' : 'unset',
+// 字体样式-斜体
+'font-weight': record.remarkDesc && record.remarkDesc.bold ? 'bolder' : 'unset',
 },
-
-
+on: {
+// 鼠标单击行
+click: event => {
+// do something
+},
+},
+}
+},
 
 CSS3 :nth-child() 选择器
 定义和用法
@@ -450,3 +445,15 @@ p:nth-child(3n+0)
 {
 background:#ff0000;
 }
+
+#### vue
+
+
+ant 的 modal 组件我想修改.ant-modal-footer 或者 content 里面的内容的样式都不可以。
+
+我试了 wrapClassName 也不会生效。请问该怎么自定义这些样式？
+原来默认挂在到了 body 节点，而我的当前样式文件却只能作用于<div id='root'></div>下的 dom。
+所以用一下这个属性：
+
+getContainer={document.getElementsByClassName('div')[0]}
+:getPopupContainer="(triggerNode) => triggerNode.parentNode"
