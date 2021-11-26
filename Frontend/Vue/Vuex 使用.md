@@ -5,10 +5,11 @@
 <summary>目录</summary>
 
 - [在带命名空间的模块内访问全局内容](#在带命名空间的模块内访问全局内容)
-- [在 Options API 中访问 store](#在-Options-API-中访问-store)
-- [在 Componsition API 中访问 store](#在-Componsition-API-中访问-store)
+- [在 Options API 中访问 store](#在-options-api-中访问-store)
+- [在 Componsition API 中访问 store](#在-componsition-api-中访问-store)
 - [结合 vuex-persist 实现持久化存储](#结合-vuex-persist-实现持久化存储)
 - [全局示例](#全局示例)
+- [Vuex 官网](#vuex-官网)
 
 </details>
 
@@ -442,3 +443,7 @@
      state: () => ({}),
    }
    ```
+
+## Vuex 官网
+
+官网地址：https://next.vuex.vuejs.org<https://next.vuex.vuejs.org/>
