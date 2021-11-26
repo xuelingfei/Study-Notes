@@ -446,4 +446,4 @@
 
 ## Vuex 官网
 
-官网地址：https://next.vuex.vuejs.org<https://next.vuex.vuejs.org/>
+官网地址：<https://next.vuex.vuejs.org>
