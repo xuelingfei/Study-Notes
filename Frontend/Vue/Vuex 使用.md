@@ -83,7 +83,7 @@
 
 - 通过辅助函数访问
 
-  1. 访问单个模块中的属性
+  1. 通过使用 `createNamespacedHelpers` 访问单个模块中的属性
 
      ```js
      import { createNamespacedHelpers } from "vuex"

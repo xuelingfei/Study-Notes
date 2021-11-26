@@ -457,3 +457,105 @@ ant 的 modal 组件我想修改.ant-modal-footer 或者 content 里面的内容
 
 getContainer={document.getElementsByClassName('div')[0]}
 :getPopupContainer="(triggerNode) => triggerNode.parentNode"
+
+
+JavaScript Array some() 方法
+定义和用法
+some() 方法用于检测数组中的元素是否满足指定条件（函数提供）。
+some() 方法会依次执行数组的每个元素：
+    如果有一个元素满足条件，则表达式返回true , 剩余的元素不会再执行检测。
+    如果没有满足条件的元素，则返回false。
+注意： some() 不会对空数组进行检测。
+注意： some() 不会改变原始数组。
+语法
+array.some(function(currentValue,index,arr),thisValue)
+参数说明
+参数 	描述
+function(currentValue, index,arr) 	必须。函数，数组中的每个元素都会执行这个函数
+函数参数:
+参数 	描述
+currentValue 	必须。当前元素的值
+index 	可选。当前元素的索引值
+arr 	可选。当前元素属于的数组对象
+thisValue 	可选。对象作为该执行回调时使用，传递给函数，用作 "this" 的值。
+如果省略了 thisValue ，"this" 的值为 "undefined"
+技术细节
+返回值： 	布尔值。如果数组中有元素满足条件返回 true，否则返回 false。
+JavaScript 版本: 	1.6
+实例
+
+检测数组中是否有元素大于 18:
+var ages = [3, 10, 18, 20];
+
+function checkAdult(age) {
+    return age >= 18;
+}
+
+function myFunction() {
+    document.getElementById("demo").innerHTML = ages.some(checkAdult);
+}
+
+输出结果为:
+true
+
+
+JavaScript 存储对象
+
+Web 存储 API 提供了 sessionStorage （会话存储） 和 localStorage（本地存储）两个存储对象来对网页的数据进行添加、删除、修改、查询操作。
+
+    localStorage 用于长久保存整个网站的数据，保存的数据没有过期时间，直到手动去除。
+    sessionStorage 用于临时保存同一窗口(或标签页)的数据，在关闭窗口或标签页之后将会删除这些数据。
+
+存储对象属性
+属性 	描述
+length 	返回存储对象中包含多少条数据。
+存储对象方法
+方法 	描述
+key(n) 	返回存储对象中第 n 个键的名称
+getItem(keyname) 	返回指定键的值
+setItem(keyname, value) 	添加键和值，如果对应的值存在，则更新该键对应的值。
+removeItem(keyname) 	移除键
+clear() 	清除存储对象中所有的键
+
+
+vue3 如何通过 ref 获取 DOM 节点
+在 vue2 中，我们通过 ref 为节点添加一个名称，然后用 this.$refs['节点名称'] 就可以获取到DOM节点，
+
+例：
+<template>
+  <div ref='one'>我是节点</div>   // 添加名称
+</template>
+
+<script>
+  mounted() {
+    console.log(this.$refs.one) // 获取到 one DOM 节点
+  }
+</script>
+
+在 vue3 中，我们一样可以通过为节点添加一个 ref 名称 ，但是接下来的步骤和 vue2 有些区别
+
+1.为节点添加一个 ref 名称
+2.创建 ref 响应式常量并且与 DOM 节点名称一致 ，且值为 null
+3.在 mounted 之后通过 常量的 value 即可获取到 DOM 节点
+
+例：
+<template>
+    <div ref="two">我是节点</div>
+</template>
+
+<script>
+  setup() {
+      const two= ref(null)
+        onMounted(() => {  // 需要在DOM加载完毕之后才可获取到
+          console.log(two.value)
+        })
+      return { two }
+ },
+</script>
+
+OK，今天就写这么多~！
+
+作者：嘉奇
+链接：https://www.jianshu.com/p/2009f3beb7a5
+来源：简书
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
