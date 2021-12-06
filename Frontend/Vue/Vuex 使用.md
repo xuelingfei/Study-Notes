@@ -217,17 +217,34 @@
 1. 目录结构
 
    ```sh
-   store
-   ├── index.js          # 组装模块并导出 store 的地方
-   ├── actions.js        # 根级别的 action
-   ├── mutations.js      # 根级别的 mutation
-   └── modules
-       ├── user.js       # 用户模块
-       ├── cart.js       # 购物车模块
-       └── products.js   # 产品模块
+   src
+   ├── main.js
+   └── store
+       ├── index.js          # 组装模块并导出 store 的地方
+       ├── actions.js        # 根级别的 action
+       ├── mutations.js      # 根级别的 mutation
+       └── modules
+           ├── user.js       # 用户模块
+           ├── cart.js       # 购物车模块
+           └── products.js   # 产品模块
    ```
 
-2. index.js
+2. main.js
+
+```js
+import { createApp } from "vue"
+import App from "./App.vue"
+import store from "./store"
+
+const app = createApp(App)
+app.use(store)
+
+...
+
+app.mount("#app")
+```
+
+3. index.js
 
    ```js
    import { createStore, createLogger } from "vuex"
@@ -265,7 +282,7 @@
    })
    ```
 
-3. user.js
+4. user.js
 
    ```js
    export default {
@@ -288,7 +305,7 @@
    }
    ```
 
-4. cart.js
+5. cart.js
 
    ```js
    import shop from "../../api/shop"
@@ -397,7 +414,7 @@
    }
    ```
 
-5. product.js
+6. product.js
 
    ```js
    import shop from "../../api/shop"
@@ -435,7 +452,7 @@
    }
    ```
 
-6. nested.js
+7. nested.js
 
    ```js
    export default {
