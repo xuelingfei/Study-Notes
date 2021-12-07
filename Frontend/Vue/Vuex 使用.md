@@ -48,8 +48,10 @@
      actions: {
        // 在这个模块中， dispatch 和 commit 也被局部化了
        // 他们可以接受 `root` 属性以访问根 dispatch 或 commit
-       someAction ({ dispatch, commit, getters, rootGetters }, product) {
-         console.log(getters.shippingFee)
+       someAction ({ dispatch, commit, state, rootState, getters, rootGetters }, product) {
+         console.log(state.shippingFee)
+         console.log(rootState.cart.items)
+         console.log(getters.totalShippingFee)
          console.log(rootGetters.cart.cartTotalPrice)
 
          commit('someMutation')
@@ -74,15 +76,25 @@
     },
     totalCount () {
       return this.$store.getters.totalCount
+      // 或
+      // this.$store.getters["totalCount"]
     },
     // 访问模块
     username () {
       return this.$store.state.user.name
     },
+  },
+  methods:{
+    // 调用
+    this.$store.commit("cart/pushProductToCart", product)
+    this.$store.dispatch("cart/addProductToCart", product)
   }
   ```
 
-- 通过辅助函数访问
+- 通过辅助函数访问  
+  共有四个辅助函数，用于访问命名空间里的内容，分别是 mapState, mapGetters, mapMutations 和 mapActions，其中  
+  mapState, mapGetters 中存的是状态（数据），因此在子组件的计算属性 computed 中使用；  
+  mapMutations, mapActions 中存的是函数，因此在子组件的 methods 使用。
 
   1. 通过使用 `createNamespacedHelpers` 访问单个模块中的属性
 
@@ -99,6 +111,9 @@
        methods: {
          ...mapMutations(["pushProductToCart", "incrementItemQuantity"]),
          ...mapActions(["checkout", "addProductToCart"]),
+         // 调用
+         this['incrementItemQuantity'](product)
+         this['addProductToCart'](product)
        },
      }
      ```
@@ -113,6 +128,9 @@
          ...mapState("user", ["name", "avatar"]),
          ...mapState("cart", ["items", "checkoutStatus"]),
          ...mapGetters("cart", ["cartProducts", "cartTotalPrice"]),
+         // 或
+         // ...mapState(["user/name", "cart/items"]),
+         // ...mapGetters(["cart/cartProducts", "cart/cartTotalPrice"]),
        },
        methods: {
          ...mapMutations("cart", [
@@ -120,6 +138,12 @@
            "incrementItemQuantity",
          ]),
          ...mapActions("cart", ["checkout", "addProductToCart"]),
+         // 或
+         // ...mapMutations(["cart/pushProductToCart"]),
+         // ...mapActions(["cart/addProductToCart"]),
+         // 调用
+	       this["cart/pushProductToCart"](product)
+	       this["cart/addProductToCart"](product)
        },
      }
      ```
@@ -148,6 +172,11 @@
        //     return this.host + state.user.avatar.imgPath
        //   }
        // }),
+       methods:{
+         ...mapActions({ aaa: "cart/addProductToCart" }),
+         // 调用
+         this.aaa(product)
+       }
      }
      ```
 
@@ -231,18 +260,18 @@
 
 2. main.js
 
-```js
-import { createApp } from "vue"
-import App from "./App.vue"
-import store from "./store"
+   ```js
+   import { createApp } from "vue"
+   import App from "./App.vue"
+   import store from "./store"
 
-const app = createApp(App)
-app.use(store)
+   const app = createApp(App)
+   app.use(store)
 
-...
+   ...
 
-app.mount("#app")
-```
+   app.mount("#app")
+   ```
 
 3. index.js
 
