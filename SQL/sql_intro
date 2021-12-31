@@ -6,3 +6,20 @@ ORDER BY
 GROUP BY
 DISTINCT去重
 DESC降序
+
+分页相关
+sql = "SELECT sd.id, sd.number, sd.`name`, sd.address, sd.type, sd.type_number, sd.group_id, sdg.`name` AS group_name, sd.robotType, sd.repair_status  "
+        sql += "FROM sys_device sd  "
+        sql += "LEFT JOIN sys_device_group sdg ON sdg.id = sd.group_id  "
+        sql += "WHERE sd.`status` = 1  "
+        sql += "AND sd.group_id = " + str(group_id) + "  "
+        if int(device_type) != -1:
+            sql += "AND sd.type = '" + device_type_dict[int(device_type)] + "'  "
+        if device_name:
+            sql += "AND sd.`name` LIKE '%" + device_name + "%'  "
+        if page_size:
+            start_no = page_no * page_size
+            sql += "LIMIT " + str(start_no) + ", " + str(page_size) + "  "
+        cursor = connection.cursor()
+        cursor.execute(sql)
+        item_tuple = cursor.fetchall()

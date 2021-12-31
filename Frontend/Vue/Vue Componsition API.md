@@ -2,24 +2,10 @@
 ```vue
 <template></template>
 <script>
-import {
-  ref,
-  reactive,
-  toRaw,
-  computed,
-  watch,
-  onBeforeMount,
-  onMounted,
-  onBeforeUpdate,
-  onUpdated,
-  onBeforeUnmount,
-  onUnmounted,
-  onErrorCaptured,
-  onRenderTracked,
-  onRenderTriggered,
-  onActivated,
-  onDeactivated,
-} from "vue"
+// ref, reactive, toRef, toRefs, toRaw, computed, watch
+// onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted
+// onErrorCaptured, onRenderTracked, onRenderTriggered, onActivated, onDeactivated
+import { computed, watch, onMounted } from "vue"
 import { useStore } from "vuex"
 import { useRoute, useRouter } from "vue-router"
 
