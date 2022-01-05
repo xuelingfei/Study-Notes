@@ -4,12 +4,21 @@
 <details markdown="1">
 <summary>目录</summary>
 
+- [手动安装](#手动安装)
 - [源管理](#源管理)
 - [包管理](#包管理)
 - [设置超时时间](#设置超时时间)
 - [生成依赖库](#生成依赖库)
 
 </details>
+
+## 手动安装
+
+一般情况下，安装 python 时会自动安装 pip 工具，无需另外手动安装。如有需要可按以下步骤手动安装
+
+1. 访问 <https://bootstrap.pypa.io/get-pip.py> 将 get-pip.py 文件保存下来；
+2. 在 get-pip.py 的保存目录下打开终端，输入 `python get-pip.py` 回车，pip 工具会自动安装；
+3. 执行完毕后输入 `python -m pip --version`，确认 pip 安装成功。
 
 ## 源管理
 

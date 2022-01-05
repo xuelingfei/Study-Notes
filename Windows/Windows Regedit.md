@@ -16,6 +16,7 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
 "ShowSecondsInSystemClock"=dword:00000001
 ```
+注：Win11 任务栏不再支持时钟秒数显示。
 
 
 #### CMD 右键菜单

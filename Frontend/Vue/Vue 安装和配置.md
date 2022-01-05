@@ -154,8 +154,6 @@ npm install -g @vue/cli-init
 vue init webpack my-project
 
 
-
-
 1.nrm
 
 nrm(npm registry manager )是npm的镜像源管理工具，有时候国外资源太慢，使用这个就可以快速地在 npm 源间切换
@@ -210,3 +208,27 @@ nrm(npm registry manager )是npm的镜像源管理工具，有时候国外资源
 链接：https://www.jianshu.com/p/94d084ce6834
 来源：简书
 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+npm install 在安装 npm 包时，有两种命令参数可以把它们的信息写入 package.json 文件
+一个是
+
+ --save || -S // 运行依赖（发布）
+
+    1
+
+另一个是
+
+–save-dev || -D //开发依赖（辅助）
+区别是它们会把依赖包添加到package.json 文件
+
+–save ： dependencies 键下，发布后还需要依赖的模块，譬如像jQuery库或者Angular框架类似的，我们在开发完后后肯定还要依赖它们，否则就运行不了。
+
+–save-dev ： devDependencies 键下，开发时的依赖比如安装 js的压缩包gulp-uglify 因为我们在发布后用不到它，而只是在我们开发才用到它。
+
+
+yarn add <package...>
+
+This will install one or more packages in your dependencies.
+yarn add <package...> [--dev/-D]
+
+Using --dev or -D will install one or more packages in your devDependencies.
