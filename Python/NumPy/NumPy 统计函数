@@ -69,3 +69,9 @@ wts = np.array([4,3,2,1])
 np.average(arr)  # 2.5
 np.average(arr, weights=wts)  # 2.0
 np.average(arr, weights=wts, returned=True)  # (2.0, 10.0)
+
+
+
+numpy 报错: ValueError: numpy.ufunc size changed, may indicate binary incompatibility.
+应是 numpy 版本过低的缘故
+pip install --upgrade numpy
