@@ -42,7 +42,7 @@ D:\Miniconda\Library\bin
 | 查看命令帮助文档 | `conda config -h`     |
 | 查看所有配置信息 | `conda config --show` |
 | 查看系统环境信息 | `conda info`          |
-| 更新             | `conda update conda`  |
+| 更新 conda       | `conda update conda`  |
 
 ## 源管理
 
@@ -63,7 +63,7 @@ D:\Miniconda\Library\bin
      ```
 
 2. 配置下载源
-   先执行 `conda config --set show_channel_urls yes` 显示包的安装来源，同时生成配置文件，Windows 下配置文件路径 `C:\Users\username\.condarc`，Linux 下 `.condarc` 在用户家目录（Home）中，修改配置文件如下（配置清华源）
+   先执行 `conda config` 生成配置文件，Windows 下配置文件路径 `C:\Users\username\.condarc`，Linux 下 `.condarc` 在用户家目录（Home）中，修改配置文件如下（配置清华源）
 
    ```
    channels:
@@ -79,6 +79,8 @@ D:\Miniconda\Library\bin
    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
    ```
+
+   注："show_channel_urls: true" 的作用是从 channel 安装包时显示包的来源，可通过命令 `conda config --set show_channel_urls yes` 设置。
 
 3. 查看已配置下载源
    ```shell
@@ -146,83 +148,47 @@ D:\Miniconda\Library\bin
 
 ## 包管理
 
+1. 查找
 
-在anaconda下用pip装包的原因：尽管在anaconda下我们可以很方便的使用conda install来安装我们需要的依赖，但是anaconda本身只提供部分包，远没有pip提供的包多，有时conda无法安装我们需要的包，我们需要用pip将其装到conda环境里。
+   ```shell
+   conda search package  # 查看包可用版本
+   conda search "package[version='>=1.0,<1.2']"  # 搜索版本处于 1.0 和 1.2 之间的 package
+   ```
 
-首先进入指定的环境中，然后再通过 pip 安装即可，命令如下
+2. 安装
 
-    注！安装特定版本的包，conda用“=”，pip用“==”
+   ```shell
+   conda install package  # 默认在当前激活的环境，安装最新版
+   conda install package=version  # 安装指定版本包
+   conda install -n env_name package  # 将 package 安装到指定 env_name 中
+   conda install "package[version='1.0|1.2']"  # 安装 1.0 或 1.2 版本的 package
+   conda install "package[version='>=1.0,<1.2']"  # 安装版本处于 1.0 和 1.2 之间的 package
+   ```
 
-conda install numpy=1.93
-pip  install numpy==1.93
+   注：通过 `conda config --set always_yes yes` 可设置包安装跳过，默认情况下为 `false`，也就是安装过程中会请求是否继续安装，设置为 `yes` 则不再弹出请求。
 
-5、安装/删除 命令:
+3. 查看已安装的库
 
-conda install gatk
-conda install gatk=3.7					# 安装特定的版本:
-conda install -n env_name gatk   		# 将 gatk 安装都 指定env_name中
+   ```shell
+   conda list
+   conda list -n env_name # 查看指定 env_name 下的包
+   ```
 
-当然, 也可以用这个命令进行搜索（会稍微慢一点）
-查看包可用版本
-conda search gatk
+4. 更新
 
+   ```shell
+   conda update package
+   conda update -n env_name package
+   conda update --all  # 升级所有包
+   ```
 
-查看某个范围内版本包
+5. 删除
 
-conda search "PKGNAME [version='>=1.0.0,<1.1']"
+   ```shell
+   conda remove/uninstall package
+   conda remove/uninstall --name env_name package
+   ```
 
-conda search "pandas [version='>=1.0.0,<1.1']"#搜索版本处于1.0.0及1.1之间的pandas
-
-
-查看已安装的库:
-
-conda list
-conda list -n env_name  	# 查看 env_name 下的库
-
-更新指定库:
-
-conda update gatk
-conda update -n py35 numpy
-conda update --all   	# 升级全部库
-
-删除环境中的某个库：
-conda remove/uninstall numpy
-conda remove --name env_name gatk
-
-
-最新版包安装
-
-conda install PACKAGE_NAME默认安装在当前激活的环境，安装最新版
-
-conda install pandas#默认安装最新版本
-
-指定版本包安装
-
-conda install PACKAGE_NAME=VETSION_CODE
-
-conda install pandas=1.1.1#安装1.1.1版的pandas
-
-指定list中版本包安装
-
-conda install "PACKAGE_NAME[version='1.0.4 |1.1.1']"
-
-conda install "pandas[version='1.0.4 |1.1.1']"#安装pandas 1.0.4版或者1.1.1版
-
-指定范围内中版本包安装
-
-conda install "PACKAGE_NAME>1.0.4,<1.1.1"
-
-conda install "pandas>1.0.4,<1.1.1"#安装版本处于1.0.4到1.1.1之间的pandas
-
-包安装跳过【y/n】
-
-conda config --set always_yes yes
-默认情况下为conda config --set always_yes false，也就是安装过程中会请求是否继续安装，设置为yes则不再弹出请求。
-
-包安装到指定环境中
-
-conda install -n ENV_NAME PACKAGE_NAME
-
-    可以这样做，但是完全没必要，建议先激活需要安装的环境，然后再安装
-
-conda install -n python2.7 pandas#将pandas安装在环境python2.7中
+6. pip  
+   在 anaconda 下使用 pip 的原因：anaconda 本身只提供部分包，远没有 pip 提供的包多。对于 anaconda 没有的包，在使用 conda 安装时会报错 "PackagesNotFoundError"，这时就需要使用 pip 将其装到 conda 环境里（先切到指定环境，再使用 pip 安装），更新或删除时亦然。  
+   注：安装指定版本的包，conda 用 "="，pip 用 "=="。
