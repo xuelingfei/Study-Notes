@@ -61,7 +61,7 @@ distinct()    用在value()之后，对查询结果去重（不可与order_by()�
     
 (3) 其他形式查询
 为空判断：
-    isnull, isnotnull    是否为空(=True/False)
+    isnull    是否为空(=True/False)
                          filter(sname__isnull=Flase)  
 比较运算：
     gt    大于
