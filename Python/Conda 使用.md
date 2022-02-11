@@ -14,7 +14,7 @@
 
 ## 环境变量
 
-Conda 安装完成后，如果未添加环境变量，使用 conda 命令会提示“无法将"conda"项识别为 cmdlet、函数、脚本文件或可运行程序的名称”，添加对应变量到系统环境变量中即可正常运行，比如
+Conda 安装完成后，如果未添加环境变量，使用 conda 命令会提示“无法将"conda"项识别为 cmdlet、函数、脚本文件或可运行程序的名称”，添加对应变量到系统环境变量中即可正常运行
 
 ```
 D:\Anaconda
@@ -24,7 +24,7 @@ D:\Anaconda\Scripts
 D:\Anaconda\Library\bin
 ```
 
-或者
+或
 
 ```
 D:\Miniconda
