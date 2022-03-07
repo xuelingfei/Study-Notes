@@ -75,7 +75,7 @@
   | 更新包到指定版本 | `pip install --upgrade package==version` |
   | 显示包信息       | `pip show package`                       |
 
-- 一些包的安装命令
+- 部分包的安装命令
 
   | 包     | 命令                        |
   | ------ | --------------------------- |
