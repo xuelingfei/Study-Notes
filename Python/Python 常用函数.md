@@ -14,18 +14,21 @@
 
 ### help()
 
-```py
-help(thing)
-```
+1. 语法
 
-打印 python 对象 thing 的帮助信息（pydoc.help），如 help(print)，help('lambda')
+   ```
+   help(thing)
+   ```
+
+2. 描述  
+   打印 python 对象 thing 的帮助信息（pydoc.help），如 help(print), help('lambda').
 
 ### print()
-
-```
-print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)
-```
-
+1. 语法
+    ```
+    print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)
+    ```
+2. 描述
 Prints the values to a stream, or to sys.stdout by default.
 Optional keyword arguments:
 
@@ -34,7 +37,7 @@ Optional keyword arguments:
 - end: string appended after the last value, default a newline.
 - flush: whether to forcibly flush the stream.
 
-参数：
+3. 参数
 
 - value -- 输出对象，可以一次输出多个，用","分隔。
 - sep -- 用来间隔多个对象，默认值是一个空格。

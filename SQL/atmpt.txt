@@ -49,3 +49,19 @@ AND pe.year = td.year
 AND pe.month = td.month
 AND pe.status = 1
 AND pe.type = '上网电量'
+
+
+
+SELECT
+	team.id,
+	team.teamName,
+	member.nickname,
+	leader.nickname 
+FROM
+	team
+	LEFT JOIN `user` AS member ON member.userId = team.members
+	LEFT JOIN `user` AS leader ON leader.userId = team.leaderId 
+WHERE
+	team.id =1
+
+可以多次关联同一张表
