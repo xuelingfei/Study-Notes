@@ -559,3 +559,25 @@ OK，今天就写这么多~！
 链接：https://www.jianshu.com/p/2009f3beb7a5
 来源：简书
 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+
+
+
+nvm安装node出现的问题：
+
+1、node成功了，npm没成功
+ 解决：在nvm 安装了node之后，输入npm找不到该命令，当时安装报错如下：
+996160-20170428161513569-624258911.png
+
+，手动删除node版本的文件夹：v6.10.2，npm安装失败我想还有一个原因可能下载地址出的问题，所以最好还是在nvm文件夹下settings里配置一下node和npm的安装地址，这样nvm安装node和npm时直接从淘宝镜像下载，可能就不会出错了。然后回到cmd窗口重新 nvm install v6.10.2 ,这时node和npm都安装成功了。
+
+settings.txt 后面加两行：
+root: D:\nvm
+path: D:\nvm\nodejs
+node_mirror: https://npm.taobao.org/mirrors/node/
+npm_mirror: https://npm.taobao.org/mirrors/npm/
+
+作者：Arvin7
+链接：https://www.jianshu.com/p/97911b2037d5
+来源：简书
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。

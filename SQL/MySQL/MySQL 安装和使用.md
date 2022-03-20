@@ -115,11 +115,16 @@ mysqladmin -u用户名 -p旧密码 password 新密码
 mysqladmin -uroot -p123456 password 123
 ```
 
-- 用 `set password` 命令  
+- `alter`  
 首先登录MySQL，然后输入如下命令
 ```shell script
-mysql> set password for root@localhost = password('123'); 
+mysql> alter user 'root'@'localhost' identified by '123';
 ```
+如果出现报错:
+ERROR 1290 (HY000): The MySQL server is running with the --skip-grant-tables option so it cannot execute this statement
+解决方案:
+先执行
+mysql> flush privileges;
 
 - 用 `update` 直接编辑 user 表  
 首先登录MySQL，然后输入如下命令
