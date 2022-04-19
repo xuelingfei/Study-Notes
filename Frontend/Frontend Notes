@@ -1,0 +1,3 @@
+获取容器的高度
+
+window.getComputedStyle(document.getElementsByClassName('number-container')[0], null).height;

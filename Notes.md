@@ -581,3 +581,22 @@ npm_mirror: https://npm.taobao.org/mirrors/npm/
 链接：https://www.jianshu.com/p/97911b2037d5
 来源：简书
 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+
+$.ajax({
+    url: '{% url "bemsp:missionTask_setUser" %}',
+    type: 'POST',
+    cache: false,
+    dataType: 'json',
+    data: {"missionId": missionId, "userId": userId},
+    success: function (data) {
+        layer.close(loadingIndex)
+        layer.msg(data.content,{icon:1,time:1000}, function(){
+            location.reload()
+        });
+
+    },
+    error: function () {
+        console.log('获取值班错误！')
+    }
+})

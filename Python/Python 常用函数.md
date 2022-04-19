@@ -117,15 +117,12 @@ round(number, ndigits=None)
 ```
 
 2. 描述
-   将数字四舍五入到十进制数字的给定精度，其中精度由第二个参数 `ndigits` 指定。
+   将数字四舍五入到十进制数字的给定精度（精确到小数点后多少位），其中精度由第二个参数 `ndigits` 指定。
 
-Round a number to a given precision in decimal digits. The return value is an integer if ndigits is omitted or None. Otherwise the return value has the same type as the number. 'ndigits' may be negative.
-如果省略 ndigits 或 None，则返回值为整数。 否则返回值与数字具有相同的类型。 'ndigits' 可能是负数。
-
-- 函数 round() 通常让小数精确到小数点后多少位，其中小数位数是由第二个实参 ndigits 指定的。
-- 如果将 ndigits 指定为负数，round() 将圆整到 10 的 -ndigits 次方的整数倍。
-- 如果省略 ndigits，则返回值为整数。
-- 如果 ndigits 为 0，则 number 为整数时，返回原值；number 为小数时，圆整到整数位，小数位置 0 且保留一位。
+3. 参数描述
+   - 如果 `ndigits` 省略或为 `None`，则返回值为整数。
+   - 如果 `ndigits` 为 `0`，则 `number` 为整数时，返回原值；`number` 为小数时，圆整到整数位，小数位置 `0` 且保留一位。
+   - 如果 `ndigits` 指定为负数，则将 `number` 圆整到 `10` 的 `-ndigits` 次方的整数倍。
 
 ### id()
 
