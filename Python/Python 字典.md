@@ -1,7 +1,7 @@
 # Python 字典
 
 <!-- markdown="1" is required for GitHub Pages to render the TOC properly. -->
-<detail markdown="1">
+<details markdown="1">
 <summary>目录</summary>
 
 - [定义](#定义)
@@ -9,7 +9,7 @@
 - [创建字典](#创建字典)
 - [字典伪切片](#字典伪切片)
 
-</detail>
+</details>
 
 ## 定义
 
