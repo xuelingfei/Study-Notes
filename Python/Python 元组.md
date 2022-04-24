@@ -1,14 +1,14 @@
 # Python 元组
 
 <!-- markdown="1" is required for GitHub Pages to render the TOC properly. -->
-<detail markdown="1">
+<details markdown="1">
 <summary>目录</summary>
 
 - [定义](#定义)
 - [tuple 函数](#tuple-函数)
 - [创建元组](创建元组)
 
-</detail>
+</details>
 
 ## 定义
 

@@ -1,7 +1,7 @@
 # Python 常用函数
 
 <!-- markdown="1" is required for GitHub Pages to render the TOC properly. -->
-<detail markdown="1">
+<details markdown="1">
 <summary>目录</summary>
 
 - [内置函数](#内置函数)
@@ -19,15 +19,15 @@
   - [setattr](#setattr)
   - [hasattr](#hasattr)
   - [getattr](#getattr)
-- [外部函数](外部函数)
-  - [sys.exit](#sys.exit)
-  - [sys.getdefaultencoding](#sys.getdefaultencoding)
-  - [random.randint](#random.randint)
-  - [copy.copy](#copy.copy)
-  - [copy.deepcopy](#copy.deepcopy)
-  - [time.sleep](#time.sleep)
+- [外部函数](#外部函数)
+  - [sys.exit](#sysexit)
+  - [sys.getdefaultencoding](#sysgetdefaultencoding)
+  - [random.randint](#randomrandint)
+  - [copy.copy](#copycopy)
+  - [copy.deepcopy](#copydeepcopy)
+  - [time.sleep](#timesleep)
 
-</detail>
+</details>
 
 ## 内置函数
 
