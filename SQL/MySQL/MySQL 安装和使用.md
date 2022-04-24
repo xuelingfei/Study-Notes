@@ -21,20 +21,21 @@ default-character-set=utf8mb4
 # 设置 3306 端口
 port=3306
 # 设置 mysql 的安装目录
-basedir=D:\\Program Files\\mysql-8.0.13-winx64
-# 设置 mysql 数据库的数据存放目录，MySQL8+ 不需要以下配置，系统自己生成即可，否则有可能报错
-# datadir=D:/mysql/mysql-5.7.19-winx64/data/
+basedir=D:\\mysql-8.0.16-winx64
 # 允许最大连接数
 max_connections=20
 # 服务端使用的字符集默认为 8 比特编码的 latin1 字符集
 character-set-server=utf8mb4
 # 创建新表时将使用的默认存储引擎
 default-storage-engine=INNODB
+
+# 设置 mysql 数据库的数据存放目录，MySQL8+ 不需要以下配置，系统自己生成即可，否则有可能报错
+# datadir=D:/mysql/mysql-5.7.19-winx64/data/
 # 免密码登陆，在 MySQL8+ 中已失效
 # skip-grant-tables
 ```
 
-4. 将 `D:\Program Files\mysql-8.0.13-winx64\bin` 添加到系统环境变量中
+4. 将 `D:\mysql-8.0.16-winx64\bin` 添加到系统环境变量中
 
 5. 初始化数据库
 ```shell script
