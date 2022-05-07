@@ -1,8 +1,0 @@
-select sta.organization_id id,
-count(case when pd.status <> -1 then 1 end) sum,
-count(case when pd.status = 1 then 1 end) shtg,
-count(case when pd.status = 0 then 1 end) dsh
-from pms_dailyproductionreports pd
-left join stations sta on sta.id = pd.station_id
-where pd.ori_id <> 0
-group by sta.organization_id

@@ -86,8 +86,16 @@ db.createView()
 
 
 
+db.collection.find().sort({"_id": -1})
 
+TypeError: if no direction is specified, key_or_list must be an instance of list
 
+解决方法：
+
+db.collection.find().sort([("_id", -1)])
+db.collection.find().sort([("name", 1), ("age" , 1)])
+
+原因：在python中只能使用列表进行排序，不能使用字典
 
 
 
