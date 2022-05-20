@@ -65,7 +65,9 @@ PRIMARY KEY ( `id` )
   - `FULL OUTER JOIN` - 只要其中一个表中存在匹配，则返回行
 
   一张图看懂 SQL 的各种 JOIN 用法
+
   ![一张图看懂 SQL 的各种 JOIN 用法](./imgs/sql-join.png)
+
   参考链接：<https://www.runoob.com/sql/sql-join.html>
 
 - JOIN 可以多次关联同一张表

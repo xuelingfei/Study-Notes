@@ -4,11 +4,11 @@
 <details markdown="1">
 <summary>目录</summary>
 
-- [安装](#安装MySQL-8+)
+- [安装](#安装mysql-8)
 - [登录](#登录)
 - [修改密码](#修改密码)
 - [创建用户与授权](#创建用户与授权)
-- [Navicat 连接报错](#Navicat 连接报错)
+- [Navicat 连接报错](#navicat-连接报错)
 
 </details>
 

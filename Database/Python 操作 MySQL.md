@@ -1,11 +1,11 @@
-# Python 和 MySQL
+# Python 操作 MySQL
 
 <!-- markdown="1" is required for GitHub Pages to render the TOC properly. -->
 <details markdown="1">
 <summary>目录</summary>
 
-- [Python 通过 PyMySQL 模块连接 MySQL](#Python-通过 PyMySQL 模块连接-MySQL)
-- [Python 调用 SQL 语句分页](#Python-调用-SQL-语句分页)
+- [Python 通过 PyMySQL 模块连接 MySQL](#python-通过-pymysql-模块连接-mysql)
+- [Python 调用 SQL 语句分页](#python-调用-sql-语句分页)
 
 </details>
 
@@ -15,7 +15,7 @@
 
    `python -m pip install PyMySQL` 或 `pip install pymysql`
 
-2. CURD
+2. 连接 MySQL
 
    - 创建 MySQL 的连接
 
@@ -66,6 +66,8 @@
      with connection.cursor(cursor=pymysql.cursors.DictCursor) as cursor:
          pass
      ```
+
+3. CURD
 
    - 使用 Cursor 执行 SQL 查询语句
 
