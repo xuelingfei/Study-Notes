@@ -5,18 +5,36 @@
 <summary>目录</summary>
 
 - [Python 通过 PyMongo 模块连接 MongoDB](#python-通过-pymongo-模块连接-mongodb)
-
-</details>
+  1. [安装 PyMongo](#1)
+  2. [连接 MongoDB](#2)
+     - [创建连接](#2.1)
+     - [创建或连接一个数据库](#2.2)
+     - [创建或获取一个集合](#2.3)
+     - [删除集合或数据库](#2.4)
+  3. [CURD](#3)
+     - [新增](#3.1)
+     - [更新](#3.2)
+     - [删除](#3.3)
+     - [查询](#3.4)
+     - [高级查询](#3.5)
+     - [排序 `sort()`](#3.6)
+     - [计数 `count()`](#3.7)
+     - [限定条数 `limit()` 和偏移 `skip()`](#3.8)
+  4. [索引 `index`](#4)
+     - [创建索引](#4.1)
+     - [查看索引信息](#4.2)
+  5. [聚合 `aggregate()`](#5)
+  </details>
 
 ## Python 通过 PyMongo 模块连接 MongoDB
 
-1. 安装 PyMongo
+1. <div id="1"></div>安装 PyMongo
 
    `python -m pip install PyMongo` 或 `pip install pymongo`
 
-2. 连接 MongoDB
+2. <div id="2"></div>连接 MongoDB
 
-   - 创建连接
+   - <div id="2.1"></div>创建连接
 
      ```py
      from pymongo import MongoClient
@@ -30,7 +48,7 @@
      client = MongoClient('mongodb://localhost:27017/')
      ```
 
-   - 创建或连接一个数据库
+   - <div id="2.2"></div>创建或连接一个数据库
 
      使用要创建的数据库的名称连接 MongoClient，如果数据库不存在，MongoDB 将创建数据库并建立连接。
 
@@ -49,7 +67,7 @@
      print(client.list_database_names())
      ```
 
-   - 创建或获取一个集合
+   - <div id="2.3"></div>创建或获取一个集合
 
      使用要创建的集合的名称连接数据库对象，如果集合不存在，MongoDB 会创建该集合。
 
@@ -68,7 +86,7 @@
      print(db.list_collection_names())
      ```
 
-   - 删除集合或数据库
+   - <div id="2.4"></div>删除集合或数据库
      - 删除集合用 `drop()` 方法，如果删除成功返回 true，如果删除失败（集合不存在）则返回 false。
        ```py
        collection.drop()
@@ -78,9 +96,9 @@
        client.drop_database()
        ```
 
-3. CURD
+3. <div id="3"></div>CURD
 
-   - 新增
+   - <div id="3.1"></div>新增
 
      - 插入单个文档用 `insert_one()`，该方法返回 InsertOneResult 对象，拥有属性 `inserted_id`，用于保存插入文档的 id。如果您没有指定 `_id` 字段，那么 MongoDB 将为您添加一个，并为每个文档分配一个唯一的 ID。
        ```py
@@ -93,7 +111,7 @@
        print(x.inserted_ids)
        ```
 
-   - 更新
+   - <div id="3.2"></div>更新
 
      - 更新单个文档用 `update_one()`，该方法第一个参数是筛选条件，用于定位要更新的文档；第二个参数是定义文档新值的对象。如果筛选到多个文档，则仅更新第一个匹配项。
        ```py
@@ -105,7 +123,7 @@
        print(x.modified_count, 'documents updated.')
        ```
 
-   - 删除
+   - <div id="3.3"></div>删除
 
      - 删除单个文档用 `delete_one()`，该方法可以删除符合筛选条件的第一个文档。
        ```py
@@ -122,7 +140,7 @@
        print(x.deleted_count, 'documents deleted.')
        ```
 
-   - 查询
+   - <div id="3.4"></div>查询
 
      - 查询单个文档用 `find_one()`，返回符合筛选条件的第一个文档。
 
@@ -141,7 +159,7 @@
        collection.find({}, {'name': 1, 'age': 0})  # 报错
        ```
 
-   - 高级查询
+   - <div id="3.5"></div>高级查询
 
      `find()` 方法的第一个参数是 query 对象，如需进行高级查询，可以使用修饰符作为查询对象中的值。
 
@@ -179,7 +197,7 @@
      collection.find({'$where': "this.age > 1"})  # 年龄大于 1
      ```
 
-   - 排序 `sort()`
+   - <div id="3.6"></div>排序 `sort()`
 
      ```py
      import pymongo
@@ -192,13 +210,13 @@
      collection.find().sort([('age', 1), ('name', 1)])  # 多字段排序
      ```
 
-   - 计数 `count()`
+   - <div id="3.7"></div>计数 `count()`
 
      ```py
      collection.find().count()  # 统计所有数据条数
      ```
 
-   - 限定条数 `limit()` 和偏移 `skip()`
+   - <div id="3.8"></div>限定条数 `limit()` 和偏移 `skip()`
 
      `limit()` 方法只接收一个数字参数，限制返回文档的数目；`skip()` 方法也只接收一个数字参数，表示偏移位置，即忽略指定数目的记录。可用 `limit()` 方法和 `skip()` 方法实现分页。在数据库数量非常庞大的时候，如千万、亿级别，最好不要使用大的偏移量来查询数据，因为这样很可能导致内存溢出。
 
@@ -206,9 +224,9 @@
      collection.find().limit(10).skip(10)
      ```
 
-4. 索引 `index`
+4. <div id="4"></div>索引 `index`
 
-   - 创建索引
+   - <div id="4.1"></div>创建索引
 
      - 创建单个索引用 `create_index()`，该方法接收一个字段名字符串或一个二元元组构成的列表作为参数，元组第一项为要创建的索引字段名，第二项指定升序（`1` 或 `pymongo.ASCENDING`）还是降序（`-1` 或 `pymongo.DESCENDING`），通过多个元组构成列表作为参数使该方法可使用多个字段创建索引。该方法的返回值是创建的索引名称。  
        在使用 `create_index()` 创建索引时，也可指定特定的参数(options)，常用可选参数如下：
@@ -239,7 +257,7 @@
        ["hello_world", "goodbye_-1"]
        ```
 
-   - 查看索引信息
+   - <div id="4.2"></div>查看索引信息
 
      查看索引信息可以用 `list_indexes()` 或 `index_information()`，前者返回一个此集合的索引文档的游标，后者返回一个包含此集合的索引信息的字典。示例如下
 
@@ -258,7 +276,7 @@
      {'_id_': {'v': 2, 'key': [('_id', 1)]}, 'age_1': {'v': 2, 'key': [('age', 1)]}, 'name_-1': {'v': 2, 'key': [('name', -1)]}}
      ```
 
-5. 聚合 `aggregate()`
+5. <div id="5"></div>聚合 `aggregate()`
 
    1. 描述
 
@@ -272,7 +290,7 @@
 
    3. 参数
 
-      - `pipeline` -- 聚合管道阶段的列表。聚合管道参见 [MongoDB Notes.md](mongodb-notesmd)
+      - `pipeline` -- 聚合管道阶段的列表。聚合管道参见 [MongoDB Notes](MongoDB%20Notes.md)。
       - `session` (可选) -- 一个 ClientSession。
       - `**kwargs` (可选) -- 额外的聚合命令参数。
 
