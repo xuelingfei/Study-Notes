@@ -13,21 +13,6 @@
 1. 下载，官网下载地址为 <https://www.mongodb.com/try/download/community>
 2. 安装，可选择 "Custom" 选项来自定义安装目录
 3. 配置环境变量 `D:\MongoDB\bin`
-4. 启用或禁用免费监控
-
-   启用 MongoDB 基于云的免费监控服务，可以接收并显示有关部署的指标（磁盘利用率、CPU、操作统计信息等）。监控数据将在 MongoDB 网站上提供，可通过唯一的 URL 访问。MongoDB 可能会使用这些信息来制作产品改进并向您建议 MongoDB 产品和部署选项。
-
-   要启用免费监控，请运行以下命令：
-
-   ```mongo
-   db.enableFreeMonitoring()
-   ```
-
-   要永久禁用此提醒，请运行以下命令：
-
-   ```mongo
-   db.disableFreeMonitoring()
-   ```
 
 ## 创建数据库和集合
 

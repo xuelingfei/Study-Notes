@@ -218,27 +218,32 @@ mysql>
    命令：
 
    ```sql
-   mysql> GRANT privileges ON databasename.tablename TO 'username'@'host'
+   mysql> grant privileges on database_name.table_name to 'username'@'host'
    ```
 
    参数说明：
 
    - privileges -- 用户的操作权限，如 `SELECT`，`INSERT`，`UPDATE` 等，如果要授予所的权限则使用 `ALL`
-   - databasename -- 数据库名
-   - tablename -- 表名，如果要授予该用户对所有数据库和表的相应操作权限则可用 `*` 表示，如 `*.*`
+   - database_name -- 数据库名
+   - table_name -- 表名，如果要授予该用户对所有数据库和表的相应操作权限则可用 `*` 表示，如 `*.*`
+   - username -- 用户名，存储在 mysql 库的 user 表里
+   - host -- 客户端地址（IP 地址），`localhost` 指数据库服务器本机，`%` 指所有主机，`192.168.0.%` 指网段内的所有主机
 
    示例：
 
    ```sql
-   mysql> GRANT SELECT, INSERT ON test.user TO 'kylin'@'%';
-   mysql> GRANT ALL ON _._ TO 'kylin'@'%';
+   mysql> grant select, insert on test.user to 'kylin'@'localhost';
    ```
 
-   注意：用以上命令授权的用户不能给其它用户授权，如果想让该用户可以授权，用以下命令:
+   注意：
+   
+   (1) 用以上命令授权的用户不能给其它用户授权，如果想让该用户可以授权，用以下命令:
 
    ```sql
-   mysql> GRANT privileges ON databasename.tablename TO 'username'@'host' WITH GRANT OPTION;
+   mysql> grant privileges on database_name.table_name to 'username'@'host' with grant option;
    ```
+
+   (2) 用 grant 命令授权时，host 应与创建相应用户时的 host 保持一致，否则会报错；也可先用 update 命令修改 user@mysql 中对应用户的 Host 再进行授权。
 
 3. 设置与更改用户密码
 
